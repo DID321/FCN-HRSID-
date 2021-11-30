@@ -74,7 +74,7 @@ def main(args):
     batch_size = args.batch_size
     # segmentation nun_classes + background
     num_classes = args.num_classes + 1
-
+    print(num_classes)
     # 用来保存训练以及验证过程中信息
     results_file = "results{}.txt".format(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 
@@ -90,8 +90,8 @@ def main(args):
                                   transforms=get_transform(train=False),
                                   txt_name="val.txt")
 
-    #num_workers = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])
-    num_workers = 0
+    num_workers = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])
+    #num_workers = 0
     train_loader = torch.utils.data.DataLoader(train_dataset,
                                                batch_size=batch_size,
                                                num_workers=num_workers,
@@ -100,7 +100,7 @@ def main(args):
                                                collate_fn=train_dataset.collate_fn)
 
     val_loader = torch.utils.data.DataLoader(val_dataset,
-                                             batch_size=1,
+                                             batch_size=8,
                                              num_workers=num_workers,
                                              pin_memory=True,
                                              collate_fn=val_dataset.collate_fn)
@@ -168,7 +168,7 @@ def parse_args():
     parser.add_argument("--num-classes", default=1, type=int)
     parser.add_argument("--aux", default=True, type=bool, help="auxilier loss")
     parser.add_argument("--device", default="cuda", help="training device")
-    parser.add_argument("-b", "--batch-size", default=1, type=int)
+    parser.add_argument("-b", "--batch-size", default=8, type=int)
     parser.add_argument("--epochs", default=30, type=int, metavar="N",
                         help="number of total epochs to train")
 
