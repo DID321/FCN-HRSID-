@@ -11,6 +11,7 @@ import shutil
 import numpy as np
  
 def save_colored_mask(mask, save_path):
+    mask = np.where(mask>0, 1, 0)
     lbl_pil = Image.fromarray(mask.astype(np.uint8), mode="P")
     colormap = imgviz.label_colormap()
     lbl_pil.putpalette(colormap.flatten())
@@ -20,7 +21,7 @@ def save_colored_mask(mask, save_path):
 def main(args):
     annotation_file = os.path.join(args.input_dir, '{}.json'.format(args.split))
     os.makedirs(os.path.join(args.input_dir, 'SegmentationClass'), exist_ok=True)
-    os.makedirs(os.path.join(args.input_dir, 'JPEGImages'), exist_ok=True)
+    #os.makedirs(os.path.join(args.input_dir, 'JPEGImages'), exist_ok=True)
 
     coco = COCO(annotation_file)
     catIds = coco.getCatIds()
