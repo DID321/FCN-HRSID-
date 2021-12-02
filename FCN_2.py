@@ -65,7 +65,7 @@ def FCN_Net():
         # [400, 400]
         layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same',activation='relu'),
         # [800, 800]
-        layers.Conv2D(2, kernel_size=[3, 3], padding='same', activation='softmax'),
+        layers.Conv2D(2, kernel_size=[3, 3], padding='same'),
     ])
 
     return model
