@@ -36,36 +36,36 @@ def FCN_Net():
         layers.MaxPool2D(pool_size=[2, 2], strides=2, padding='valid'),
         # [25, 25]
         # upsampling
-        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same'),
+        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same',activation='relu'),
         # [50, 50]
         layers.Conv2D(8, kernel_size=[3, 3], padding='same'),
         layers.BatchNormalization(),
         layers.Activation('relu'),
         # [50, 50]
         # upsampling
-        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same'),
+        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same',activation='relu'),
         # [100, 100]
         layers.Conv2D(8, kernel_size=[3, 3], padding='same'),
         layers.BatchNormalization(),
         layers.Activation('relu'),
         # [100, 100]
         # upsampling
-        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same'),
+        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same',activation='relu'),
         # [200, 200]
         layers.Conv2D(8, kernel_size=[3, 3], padding='same'),
         layers.BatchNormalization(),
         layers.Activation('relu'),
         # [200, 200]
         # upsampling
-        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same'),
+        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same',activation='relu'),
         # [400, 400]
         layers.Conv2D(8, kernel_size=[3, 3], padding='same'),
         layers.BatchNormalization(),
         layers.Activation('relu'),
         # [400, 400]
-        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same'),
+        layers.Conv2DTranspose(8, kernel_size=[2, 2], strides=2, padding='same',activation='relu'),
         # [800, 800]
-        layers.Conv2D(2, kernel_size=[3, 3], padding='same',activation='sigmoid'),
+        layers.Conv2D(2, kernel_size=[3, 3], padding='same',activation='softmax'),
     ])
 
     return model

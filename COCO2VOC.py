@@ -11,8 +11,8 @@ import shutil
 import numpy as np
  
 def save_colored_mask(mask, save_path):
-    mask = np.where(mask>0, 1, 0)
-    lbl_pil = Image.fromarray(mask.astype(np.uint8), mode="P")
+    mask = np.where(mask>0, 255, 0)
+    lbl_pil = Image.fromarray(mask.astype(np.uint8), mode="L")
     #colormap = imgviz.label_colormap()
     #lbl_pil.putpalette(colormap.flatten())
     lbl_pil.save(save_path)
@@ -20,7 +20,7 @@ def save_colored_mask(mask, save_path):
  
 def main(args):
     annotation_file = os.path.join(args.input_dir, '{}.json'.format(args.split))
-    os.makedirs(os.path.join(args.input_dir, 'SegmentationClassPmode'), exist_ok=True)
+    os.makedirs(os.path.join(args.input_dir, 'SegmentationClassmode'), exist_ok=True)
     #os.makedirs(os.path.join(args.input_dir, 'JPEGImages'), exist_ok=True)
 
     coco = COCO(annotation_file)
@@ -37,7 +37,7 @@ def main(args):
                 mask += coco.annToMask(anns[i + 1]) * anns[i + 1]['category_id']
             #img_origin_path = os.path.join(args.input_dir, 'images', args.split, img['file_name'])
             #img_output_path = os.path.join(args.input_dir, 'JPEGImages', img['file_name'])
-            seg_output_path = os.path.join(args.input_dir, 'SegmentationClassPmode', img['file_name'].replace('.jpg', '.png'))
+            seg_output_path = os.path.join(args.input_dir, 'SegmentationClassmode', img['file_name'].replace('.jpg', '.png'))
             #shutil.copy(img_origin_path, img_output_path)
             save_colored_mask(mask, seg_output_path)
  
